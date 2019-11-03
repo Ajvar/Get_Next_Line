@@ -103,3 +103,29 @@ char		*ft_strndup(const char *s1, size_t len)
 	res[i] = '\0';
 	return (res);
 }
+
+char		*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	char	*res;
+
+	if (!s1 || !s2)
+		return (NULL);
+	if (!(res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
+		return (NULL);
+	i = 0;
+	while (*s1)
+	{
+		res[i] = *s1;
+		s1++;
+		i++;
+	}
+	while (*s2)
+	{
+		res[i] = *s2;
+		s2++;
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}
