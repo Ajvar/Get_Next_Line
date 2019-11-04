@@ -6,7 +6,7 @@
 /*   By: jcueille <jcueille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 11:59:53 by jcueille          #+#    #+#             */
-/*   Updated: 2019/11/01 17:16:44 by jcueille         ###   ########.fr       */
+/*   Updated: 2019/11/04 12:21:42 by jcueille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char		*ft_strdup(const char *s1)
 	int		i;
 
 	i = 0;
+	
 	if (!(res = malloc(ft_strlen(s1) + 1)))
 		return (NULL);
 	while (s1[i])
