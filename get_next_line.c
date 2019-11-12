@@ -6,7 +6,7 @@
 /*   By: jcueille <jcueille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:56:20 by jcueille          #+#    #+#             */
-/*   Updated: 2019/11/04 15:11:47 by jcueille         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:11:59 by jcueille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,16 @@ int get_next_line(int fd, char **line)
 					while(buff[i] != '\n' && buff[i])
 						i++;
 					line[0] = ft_substr(buff, 0, i);
-//					if (ft_strchr(line[0], '\0'))
-//						return (0);
 					buff = ft_strdup(ft_strchr(buff, '\n') + 1);
 					return (1);
 				}
 				line[0] = strdup(buff);
-				free(buff);
+				//if (buff)
+				//	free(buff);
 		}
 /*---------------------*/
 	str = malloc(BUFFER_SIZE + 1);
-	buff = ft_calloc(BUFFER_SIZE,1);
+	buff = malloc(BUFFER_SIZE);
 	while ((ret = read(fd, str, BUFFER_SIZE)))
 	{
 		if (ret == -1)
