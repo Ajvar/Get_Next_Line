@@ -6,49 +6,46 @@
 /*   By: jcueille <jcueille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:56:20 by jcueille          #+#    #+#             */
-/*   Updated: 2019/11/12 18:11:59 by jcueille         ###   ########.fr       */
+/*   Updated: 2019/11/15 11:38:58 by jcueille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-#include <string.h> 
+#include <string.h>
 
-
-int get_next_line(int fd, char **line)
+int				get_next_line(int fd, char **line)
 {
-	int ret;
-	static char *buff = NULL;
-	char *str;
-	char *tmp;
-	size_t i;
+	int			ret;
+	static char	*buff = NULL;
+	char		*str;
+	char		*tmp;
+	size_t		i;
 
 	i = 0;
 	if (line == NULL || fd < 0 || BUFFER_SIZE < 1)
 		return (-1);
-	if (!(line[0]= ft_calloc(BUFFER_SIZE, 1)))
+	if (!(line[0] = ft_strdup("")))
 		return (-1);
-
 /*----------SI QQ CHOSE DANS TAMPON--------------*/
 	if (buff)
+	{
+		free(line[0]);
+		if (ft_strchr(buff, '\n'))
 		{
-			if (*buff == '\n')
-				buff++;
-			if (ft_strchr(buff, '\n'))
-				{
-					while(buff[i] != '\n' && buff[i])
-						i++;
-					line[0] = ft_substr(buff, 0, i);
-					buff = ft_strdup(ft_strchr(buff, '\n') + 1);
-					return (1);
-				}
-				line[0] = strdup(buff);
-				//if (buff)
-				//	free(buff);
+			while (buff[i] != '\n' && buff[i])
+				i++;
+			line[0] = ft_substr(buff, 0, i);
+			buff = ft_strdup(ft_strchr(buff, '\n') + 1);
+			return (1);
 		}
+		line[0] = strdup(buff);
+		free(buff);
+		//*buff = (char)NULL;
+	}
 /*---------------------*/
-	str = malloc(BUFFER_SIZE + 1);
-	buff = malloc(BUFFER_SIZE);
+	str = ft_calloc((BUFFER_SIZE + 1), 1);
+	//buff = ft_strdup("");
 	while ((ret = read(fd, str, BUFFER_SIZE)))
 	{
 		if (ret == -1)
@@ -61,22 +58,25 @@ int get_next_line(int fd, char **line)
 		if (ft_strchr(line[0], '\n'))
 		{
 			i = 0;
-			while(line[0][i] != '\n')
+			while (line[0][i] != '\n')
 				i++;
 			buff = ft_strdup(ft_strchr(line[0], '\n') + 1);
-			line[0] = ft_strndup(line[0], i);
+			tmp = ft_strdup(line[0]);
+			free(line[0]);
+			line[0] = ft_substr(tmp, 0, i);
+			free(tmp);
+			free(str);
 			return (1);
 		}
-		//else
-		//	line[0] = ft_strndup(str, ft_strlen(str));
-		//return (1);
 	}
 	free(str);
-	if (ret == 0 && ft_strlen(line[0]) == 0)
-	line[0][0] = '\0';
-		return (0);
-	if (ret >0)
+	if (ret > 0)
 		return (1);
+/*	if (*buff)
+	{
+		free(buff);
+		*buff = (char)NULL;
+	}*/
 	return (0);
 }
 /*
@@ -96,8 +96,8 @@ int main(void)
 	close(fd);
 	return (0);
 }*/
-
-/*void    sigcatch()
+/*
+void    sigcatch()
 {
         write(2, "Your GNL got killed because it got stuck \n", 42);
         exit(-1);
@@ -123,7 +123,6 @@ void
                         free(*buffer);
                         *buffer = NULL;
                 }
-
         }
 
         if (r >= 0)
@@ -139,8 +138,7 @@ void
         alarm(0);
 }
 
-int
-        main(void)
+int main(void)
 {
         char            *buffer = NULL;
         int                     i, fd;
