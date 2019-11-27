@@ -6,7 +6,7 @@
 /*   By: jcueille <jcueille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 11:59:53 by jcueille          #+#    #+#             */
-/*   Updated: 2019/11/15 13:51:42 by jcueille         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:40:18 by jcueille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,6 @@ char		*ft_substr(char const *s, unsigned int start, size_t len)
 	if (start < s_len)
 		while (i < len && s[start])
 			res[i++] = s[start++];
-	return (res);
-}
-
-char		*ft_strdup(const char *s1)
-{
-	char	*res;
-	int		i;
-
-	i = 0;
-	
-	if (!(res = ft_calloc((ft_strlen(s1) + 1), 1)))
-		return (NULL);
-	while (s1[i])
-	{
-		res[i] = s1[i];
-		i++;
-	}
-	res[i] = '\0';
 	return (res);
 }
 
