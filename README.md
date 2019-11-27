@@ -2,4 +2,4 @@
 
 Reads from a file descriptor and returns a line without the '\n'
 
-Compiles with option "-D BUFFERSIZE=Size_You_Want"
+Compiles with option "-D BUFFER_SIZE=Size_You_Want"
