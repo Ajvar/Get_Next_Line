@@ -6,7 +6,7 @@
 /*   By: jcueille <jcueille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:56:20 by jcueille          #+#    #+#             */
-/*   Updated: 2019/11/27 15:46:34 by jcueille         ###   ########.fr       */
+/*   Updated: 2019/11/28 10:55:56 by jcueille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int		ft_buffcheck(char **buff, char **line, char **tmp)
 			i = ft_strchr(*buff, '\n') - *buff;
 			if (!(line[0] = ft_substr(*buff, 0, i)))
 				return (ft_free(line, buff));
-			*tmp = ft_substr(*buff, i + 1, ft_strlen(&buff[0][i + 1]));
+			if (!(*tmp = ft_substr(*buff, i + 1, ft_strlen(&buff[0][i + 1]))))
+				return (ft_free(line, buff));
 			free(*buff);
 			*buff = NULL;
 			if (!(*buff = ft_substr(*tmp, 0, ft_strlen(*tmp))))
@@ -62,7 +63,8 @@ static int		ft_check_return(char **line, char **buff
 	if (ft_strchr(line[0], '\n'))
 	{
 		i = ft_strchr(line[0], '\n') - line[0];
-		if (!(*buff = ft_substr(line[0], i + 1, ft_strlen(&line[0][i + 1]))))
+		if (!(*buff = ft_substr(line[0], i + 1
+		, ft_strlen(&line[0][i + 1]))))
 			return (ft_free(line, buff));
 		if (!(*tmp = ft_substr(line[0], 0, ft_strlen(line[0]))))
 			return (ft_free(line, buff));
